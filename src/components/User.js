@@ -7,13 +7,13 @@ class User extends Component {
   }
   render() {
     debugger;
-    const { id, avatarUrl, name, htmlUrl, login } = this.props.user;
+    const { id, avatar_url, name, htmlUrl, login } = this.props.user;
     debugger;
     return (
       <div className="col-md-4 col-sm-6 col-lg-3 mt-3">
        
           <div className="card">
-            <img className="img-fluid" src={avatarUrl} alt="" />
+            <img className="img-fluid" src={avatar_url} alt="" />
             <div className="card-body">
               <h5 className="card-title">{name}</h5>
               <p className="card-text">{name}.com</p>
