@@ -3,6 +3,7 @@ import React, { Component, Fragment } from "react";
 import Navbar from "./Navbar";
 import Search from "./Search";
 import Users from "./Users";
+import Alert from "./Alert";
 
 export class App extends Component {
   constructor(props) {
@@ -10,9 +11,11 @@ export class App extends Component {
     this.state = {
       loading: false,
       users: [],
+      alert: null,
     };
     this.searchUsers = this.searchUsers.bind(this);
     this.clearUsers = this.clearUsers.bind(this);
+    this.setAlert = this.setAlert.bind(this);
   }
   // componentDidMount() {
   //   this.setState({ loading: true });
@@ -34,6 +37,22 @@ export class App extends Component {
         );
     }, 1000);
   }
+
+  setAlert(msg, type) {
+    this.setState({
+      alert: {
+        msg,
+        type,
+      },
+    });
+
+    setTimeout(() => {
+      this.setState({
+        alert: null,
+      });
+    }, 3000);
+  }
+
   clearUsers() {
     this.setState({ users: [] });
   }
@@ -41,9 +60,11 @@ export class App extends Component {
     return (
       <>
         <Navbar title="Github Finder" icon="fa-brands fa-github" />
+        <Alert alert={this.state.alert} />
         <Search
           searchUsers={this.searchUsers}
           clearUsers={this.clearUsers}
+          setAlert={this.setAlert}
           showClearButton={this.state.users.length > 0 ? true : false}
         />
         <Users users={this.state.users} loading={this.state.loading} />

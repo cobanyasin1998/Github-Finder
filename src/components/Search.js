@@ -16,10 +16,14 @@ export class Search extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    this.props.searchUsers(this.state.keyword);
-    this.setState({
-      keyword: "",
-    });
+    if (this.state.keyword === "") {
+      this.props.setAlert("Lütfen bir anahtar kelime giriniz", "danger");
+    } else {
+      this.props.searchUsers(this.state.keyword);
+      this.setState({
+        keyword: "",
+      });
+    }
   }
   render() {
     return (
@@ -41,15 +45,14 @@ export class Search extends Component {
             </div>
           </div>
         </form>
-        {
-        this.props.showClearButton && 
+        {this.props.showClearButton && (
           <button
             onClick={this.props.clearUsers}
             className="w-100 btn btn-secondary btn-sm btn-block mt-2"
           >
             Clear Results
           </button>
-        }
+        )}
       </div>
     );
   }
