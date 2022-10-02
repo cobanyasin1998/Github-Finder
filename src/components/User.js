@@ -7,7 +7,7 @@ class User extends Component {
   }
   render() {
  
-    const { id, avatar_url, name, htmlUrl, login } = this.props.user;
+    const { id, avatar_url, name, html_url, login } = this.props.user;
   
     return (
       <div className="col-md-4 col-sm-6 col-lg-3 mt-3">
@@ -18,7 +18,7 @@ class User extends Component {
               <h5 className="card-title">{name}</h5>
               <p className="card-text">{name}.com</p>
               <p className="card-text">{login}.com</p>
-              <a className="btn btn-primary btn-sm" href={htmlUrl}>
+              <a className="btn btn-primary btn-sm" href={html_url}>
                 Go Profile
               </a>
             </div>
