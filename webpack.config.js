@@ -1,6 +1,6 @@
 const path = require("path");
 module.exports = {
-  module:{
+  module: {
     rules: [
       {
         test: /\.js$|jsx/,
@@ -17,29 +17,30 @@ module.exports = {
       },
       {
         test: /\.scss$/i,
-        use: ["style-loader", "css-loader","sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: ["file-loader"]
-      }
+        use: ["file-loader"],
+      },
     ],
-},
+  },
   entry: "./src/app.js",
-  mode:'production',
+  mode: "production",
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000
-},
+    maxAssetSize: 512000,
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'),
-    }
+      directory: path.join(__dirname, "dist"),
+    },
+    historyApiFallback: true
+
   },
- 
 };
