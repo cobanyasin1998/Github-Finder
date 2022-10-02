@@ -3,12 +3,12 @@ import React, { Component } from "react";
 class User extends Component {
   constructor(props) {
     super(props);
-    debugger;
+ 
   }
   render() {
-    debugger;
+ 
     const { id, avatar_url, name, htmlUrl, login } = this.props.user;
-    debugger;
+  
     return (
       <div className="col-md-4 col-sm-6 col-lg-3 mt-3">
        
