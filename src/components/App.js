@@ -4,6 +4,17 @@ import Navbar from "./Navbar";
 import Search from "./Search";
 import Users from "./Users";
 import Alert from "./Alert";
+import About from "./About";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  useParams,
+  NavLink,
+  BrowserRouter,
+} from "react-router-dom";
 
 export class App extends Component {
   constructor(props) {
@@ -59,15 +70,33 @@ export class App extends Component {
   render() {
     return (
       <>
-        <Navbar title="Github Finder" icon="fa-brands fa-github" />
-        <Alert alert={this.state.alert} />
-        <Search
-          searchUsers={this.searchUsers}
-          clearUsers={this.clearUsers}
-          setAlert={this.setAlert}
-          showClearButton={this.state.users.length > 0 ? true : false}
-        />
-        <Users users={this.state.users} loading={this.state.loading} />
+        <Router>
+          <Navbar title="Github Finder" icon="fa-brands fa-github" />
+          <Alert alert={this.state.alert} />
+          <Switch>
+            <Route
+            exact
+              path="/"
+              render={(props) => (
+                <>
+                  <Search
+                    searchUsers={this.searchUsers}
+                    clearUsers={this.clearUsers}
+                    setAlert={this.setAlert}
+                    showClearButton={this.state.users.length > 0 ? true : false}
+                  />
+                  <Users
+                    users={this.state.users}
+                    loading={this.state.loading}
+                  />
+                </>
+              )}
+            />
+            <Route exact path="/about">
+              <About />
+            </Route>
+          </Switch>
+        </Router>
       </>
     );
   }
