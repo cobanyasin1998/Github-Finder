@@ -5,7 +5,7 @@ export const Loading = () => {
   return (
     <>
       <img
-        src={loading}
+        src={`\${loading}`}
         alt="Loading..."
         style={{ width: "200px", display: "block", margin: "auto" }}
       ></img>

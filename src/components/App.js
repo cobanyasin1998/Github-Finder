@@ -5,7 +5,7 @@ import Search from "./Search";
 import Users from "./Users";
 import Alert from "./Alert";
 import About from "./About";
-
+import UserDetails from "./UserDetails";
 import {
   BrowserRouter as Router,
   Route,
@@ -22,11 +22,13 @@ export class App extends Component {
     this.state = {
       loading: false,
       users: [],
+      user: {},
       alert: null,
     };
     this.searchUsers = this.searchUsers.bind(this);
     this.clearUsers = this.clearUsers.bind(this);
     this.setAlert = this.setAlert.bind(this);
+    this.getUser = this.getUser.bind(this);
   }
   // componentDidMount() {
   //   this.setState({ loading: true });
@@ -48,7 +50,17 @@ export class App extends Component {
         );
     }, 1000);
   }
-
+  getUser(username) {
+    console.log(username);
+    this.setState({ loading: true });
+    setTimeout(() => {
+      axios
+        .get(`https://api.github.com/users/${username}`)
+        .then((response) =>
+          this.setState({ user: response.data, loading: false })
+        );
+    }, 1000);
+  }
   setAlert(msg, type) {
     this.setState({
       alert: {
@@ -75,7 +87,7 @@ export class App extends Component {
           <Alert alert={this.state.alert} />
           <Switch>
             <Route
-            exact
+              exact
               path="/"
               render={(props) => (
                 <>
@@ -94,6 +106,20 @@ export class App extends Component {
             />
             <Route exact path="/about">
               <About />
+            </Route>
+            <Route
+              exact
+              path="/user/:login"
+              render={(props) => (
+                <UserDetails
+                  {...props}
+                  getUser={this.getUser}
+                  user={this.state.user}
+                  loading={this.state.loading}
+                />
+              )}
+            >
+              
             </Route>
           </Switch>
         </Router>
