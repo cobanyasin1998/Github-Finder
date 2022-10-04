@@ -22,6 +22,7 @@ export class App extends Component {
     this.state = {
       loading: false,
       users: [],
+      repos:[],
       user: {},
       alert: null,
     };
@@ -29,6 +30,7 @@ export class App extends Component {
     this.clearUsers = this.clearUsers.bind(this);
     this.setAlert = this.setAlert.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.getUserRepos = this.getUserRepos.bind(this);
   }
   // componentDidMount() {
   //   this.setState({ loading: true });
@@ -51,15 +53,28 @@ export class App extends Component {
     }, 1000);
   }
   getUser(username) {
-    console.log(username);
+   
     this.setState({ loading: true });
     setTimeout(() => {
       axios
         .get(`https://api.github.com/users/${username}`)
         .then((response) =>
           this.setState({ user: response.data, loading: false })
+          
         );
     }, 1000);
+  }
+  getUserRepos(username) {
+   
+    this.setState({ loading: true });
+    setTimeout(() => {
+      axios
+        .get(`https://api.github.com/users/${username}/repos`)
+        .then((response) =>
+          this.setState({ repos: response.data, loading: false })
+        );
+    }, 1000);
+    console.log("Burası cevap : "+ this.state.repos);
   }
   setAlert(msg, type) {
     this.setState({
@@ -114,6 +129,8 @@ export class App extends Component {
                 <UserDetails
                   {...props}
                   getUser={this.getUser}
+                  getUserRepos = {this.getUserRepos}
+                  repos={this.state.repos}
                   user={this.state.user}
                   loading={this.state.loading}
                 />
