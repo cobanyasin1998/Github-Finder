@@ -25,7 +25,7 @@ module.exports = {
       },
     ],
   },
-  entry: "./src/examples/state-hook.js",
+  entry: "./src/app.js",
   mode: "production",
   performance: {
     hints: false,
