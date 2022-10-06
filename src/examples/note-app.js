@@ -1,15 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import ReactDOM from "react-dom";
 import "../styles/main.scss";
+
+const noteReducer = (state, action) => {
+  switch (action.type) {
+    case "POPULATE_NOTES":
+      return action.notes;
+    case "ADD_NOTE":
+      return [
+        ...state,
+        {
+          title: action.title,
+          body: action.body,
+        },
+      ];
+    case "REMOVE_NOTE":
+      return state.filter((note) => note.title !== action.title);
+    default:
+      return state;
+  }
+};
+
 const NoteApp = () => {
-  const [notes, setNotes] = useState([]);
+  //   const [notes, setNotes] = useState([]);
+
+  const [notes, dispatch] = useReducer(noteReducer, []);
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
   useEffect(() => {
     const noteData = JSON.parse(localStorage.getItem("noteData"));
     if (noteData) {
-      setNotes(noteData);
+      //   setNotes(noteData);
+      dispatch({ type: "POPULATE_NOTES", noteData });
     }
   }, []);
 
@@ -20,13 +44,23 @@ const NoteApp = () => {
   const addNote = (e) => {
     e.preventDefault();
     if (title) {
-      setNotes([...notes, { title, body }]);
+      //   setNotes([...notes, { title, body }]);
+
+      dispatch({
+        type: "ADD_NOTE",
+        title,
+        body,
+      });
       setTitle("");
       setBody("");
     }
   };
   const removeNote = (title) => {
-    setNotes(notes.filter((note) => note.title !== title));
+    // setNotes(notes.filter((note) => note.title !== title));
+    dispatch({
+      type: "REMOVE_NOTE",
+      title,
+    });
   };
   return (
     <div className="container p-5">
