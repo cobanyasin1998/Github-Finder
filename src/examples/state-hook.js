@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 // class App extends Component {
@@ -7,6 +7,9 @@ import ReactDOM from "react-dom";
 //     this.state = {
 //       count: 0,
 //     };
+//   }
+//   componentDidMount(){
+//     console.log('');
 //   }
 //   render() {
 //     return (
@@ -23,6 +26,16 @@ import ReactDOM from "react-dom";
 const App = (props) => {
   const [count, setCount] = useState(props.count);
   const [text, setText] = useState("kez Tıkladınız");
+
+  useEffect(() => {
+    console.log("use Effect etkilendi - COUNT");
+  }, [count]);
+  useEffect(() => {
+    console.log("use Effect etkilendi - TEXT");
+  }, [text]);
+  useEffect(() => {
+    console.log("use Effect etkilendi - All");
+  });
   return (
     <div>
       <p>
@@ -37,8 +50,8 @@ App.defaultProps = {
   count: 5,
 };
 
-// function App() {
-//   return <div>Class Component</div>;
-// }
+function App() {
+  return <div>Class Component</div>;
+}
 
 ReactDOM.render(<App />, document.getElementById("root"));
