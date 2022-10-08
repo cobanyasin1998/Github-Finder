@@ -25,7 +25,7 @@ module.exports = {
       },
     ],
   },
-  entry: "./src/examples/note-app.js",
+  entry: "./src/examples/note_app/index.js",
   mode: "production",
   performance: {
     hints: false,
