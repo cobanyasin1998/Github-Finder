@@ -4,7 +4,7 @@ import { Loading } from "./Loading";
 import GithubContext from "../context/githubContext";
 const Users = () => {
   const githubContext = useContext(GithubContext);
-  const { users, loading } = GithubContext;
+  const { users, loading } = githubContext;
   if (loading) {
     return <Loading />;
   } else {

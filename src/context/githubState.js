@@ -10,27 +10,25 @@ const Githubstate = (props) => {
   };
   const [state, dispatch] = useReducer(githubReducer, initialState);
 
-
-  const searchUsers =(keyword) =>{
+  const searchUsers = (keyword) => {
     setLoading(true);
-        setTimeout(() => {
-          axios
-            .get(`https://api.github.com/search/users?q=${keyword}`)
-            .then((response) =>
-              {
-                setUsers(res.data.items)
-                setLoading(false);
-    
-              }
-            );
-        }, 1000);
-      }
+    setTimeout(() => {
+      axios
+        .get(`https://api.github.com/search/users?q=${keyword}`)
+        .then((response) => {
+          dispatch({
+            type: "SEARCH_USERS",
+            payload: res.data.items,
+          });
+        });
+    }, 1000);
+  };
 
-      const setLoading = () =>{
-        dispatch({
-            type:"SET_LOADING"
-        })
-      }
+  const setLoading = () => {
+    dispatch({
+      type: "SET_LOADING",
+    });
+  };
 
   return (
     <GithubContext.Provider
@@ -39,6 +37,7 @@ const Githubstate = (props) => {
         user: state.user,
         repos: state.repos,
         loading: state.loading,
+        searchUsers
       }}
     >
       {props.children}
@@ -46,4 +45,4 @@ const Githubstate = (props) => {
   );
 };
 
-export default Githubstate
+export default Githubstate;
