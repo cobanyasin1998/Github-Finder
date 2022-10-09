@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import GithubContext from "../context/githubContext";
 
 const Search = ({ searchUsers, clearUsers, setAlert, showClearButton }) => {
   const [keyword, SetKeyword] = useState("");
 
+  const githubContext = useContext(GithubContext);
   const onChange = (e) => {
     SetKeyword(e.target.value);
   };
@@ -12,7 +14,7 @@ const Search = ({ searchUsers, clearUsers, setAlert, showClearButton }) => {
     if (keyword === "") {
       setAlert("Lütfen bir anahtar kelime giriniz", "danger");
     } else {
-      searchUsers(keyword);
+      githubContext.searchUsers(keyword);
       SetKeyword("");
     }
   };
